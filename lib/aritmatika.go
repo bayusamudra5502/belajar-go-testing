@@ -13,5 +13,6 @@ func Perkalian(a,b int) int {
 }
 
 func PembagianInt(a,b int) int {
-	return a / b
+	result := float64(a) / float64(b)
+	return int(result)
 }
