@@ -9,6 +9,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestMain(m *testing.M) {
+	fmt.Println("Aku cuma sekali setiap package diexec")
+
+	m.Run()
+
+	fmt.Println("Unit test sudah beres")
+}
+
 func TestPenjumlahan1(t *testing.T) {
 	result := lib.Penjumlahan(1,2)
 
@@ -60,4 +68,36 @@ func TestSkipdeh(t *testing.T){
 	}
 
 	assert.Equal(t,1,1)
+}
+
+func TestSubTest(t *testing.T) {
+	t.Run("Menjalankan test penjumlahan", func(t *testing.T){
+		assert.Equal(t, 2, lib.Penjumlahan(1,1), "Menjumlahkan 2 bilangan")
+	})
+
+	t.Run("Menjalankan test pengurangan", func(t *testing.T){
+		assert.Equal(t, 0, lib.Pengurangan(1,1), "Menjumlahkan 2 bilangan")
+	})
+}
+
+func TestTable(t *testing.T) {
+	// Table Testing
+
+	tests := []struct {
+		nama string
+		param1 int
+		param2 int
+		expected int
+	} {
+		{"Test1", 2, 3, 6},
+		{"Test2", 2, 5, 10},
+		{"Test3", 1, 5, 5},
+		{"Test4", 2, 12, 24},
+	}
+
+	for _, i := range tests {
+		t.Run(i.nama, func(t *testing.T){
+			assert.Equal(t, i.expected, lib.Perkalian(i.param1, i.param2))
+		})
+	}
 }
